@@ -1,0 +1,16 @@
+# dsh-plugin-rss-digest — capa bundle de DSH.
+# Inserta una fila @deepseek-ai/dsh-mcp-client que lanza el servidor como "rss".
+# Tools resultantes: mcp__rss__* (ver README).
+- insert:
+    - id: mcp-rss-digest
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: rss
+        transport: stdio
+        command: !!js process.execPath
+        args:
+          - !!js "(process.env.DSH_HOME && process.env.DSH_HOME.trim() !== '' ? process.env.DSH_HOME : (process.env.USERPROFILE || process.env.HOME || '') + '/.dsh') + '/plugins/rss-digest/server.mjs'"
+        env:
+          ELECTRON_RUN_AS_NODE: '1'
+        failOnStartupError: false
+        toolCallTimeoutMs: 60000
